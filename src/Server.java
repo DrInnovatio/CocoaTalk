@@ -9,25 +9,23 @@ import java.util.Scanner;
 public class Server {
 
     public static void main(String[] args) {
-
         final ServerSocket serverSocket;
         final Socket clientSocket;
         final BufferedReader in;
         final PrintWriter out;
-        final Scanner scanner = new Scanner(System.in);  // It can read data from the user’s keybord.
+        final Scanner scanner = new Scanner(System.in);
 
-        try{
+        try {
             serverSocket = new ServerSocket(5000);
             clientSocket = serverSocket.accept();
-            System.out.println("Waiting for the connection request.....");
-            out = new PrintWriter(clientSocket.getOutputStream());    //  out is ready to write data into clientsocket.
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));  //in is to read from clientSocket.
+            out = new PrintWriter(clientSocket.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            Thread sender = new Thread(new Runnable(){
+            Thread sender = new Thread(new Runnable() {
                 String message;
                 @Override
                 public void run() {
-                    while(true){
+                    while (true) {
                         message = scanner.nextLine();
                         out.println(message);
                         out.flush();
@@ -35,8 +33,11 @@ public class Server {
                 }
             });
             sender.start();
+//        }catch(IOException event){
+//            event.printStackTrace();
+//        }
 
-            Thread receiver = new Thread(new Runnable(){
+            Thread receive = new Thread(new Runnable() {
                 String message;
                 @Override
                 public void run() {
@@ -46,7 +47,7 @@ public class Server {
                             System.out.println("Client : " + message);
                             message = in.readLine();
                         }
-                        System.out.println("Client Connection!");
+                        System.out.println("Client Disconnection!");
                         out.close();
                         clientSocket.close();
                         serverSocket.close();
@@ -56,7 +57,7 @@ public class Server {
                     }
                 }
             });
-            receiver.start();
+            receive.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
