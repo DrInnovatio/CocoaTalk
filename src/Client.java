@@ -5,9 +5,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends MainChatWindow {
 
     public static void main(String[] args) {
+
+        new MainChatWindowSub("CocoaTalk-CLIENT");
 
         final Socket clientSocket;
         final BufferedReader in;

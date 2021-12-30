@@ -6,9 +6,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Server {
+public class Server extends MainChatWindow {
+
 
     public static void main(String[] args) {
+
+        new MainChatWindowSub("CocoaTalk-SERVER");
+
         final ServerSocket serverSocket;
         final Socket clientSocket;
         final BufferedReader in;
@@ -33,9 +37,6 @@ public class Server {
                 }
             });
             sender.start();
-//        }catch(IOException event){
-//            event.printStackTrace();
-//        }
 
             Thread receive = new Thread(new Runnable() {
                 String message;
@@ -51,7 +52,6 @@ public class Server {
                         out.close();
                         clientSocket.close();
                         serverSocket.close();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

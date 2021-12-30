@@ -39,8 +39,8 @@ class MainChatWindowSub extends JFrame implements ActionListener, KeyListener {
 
     public void init(){
         this.setLayout(bl);
-        Panel p = new Panel(new BorderLayout(2,2));
 
+        Panel p = new Panel(new BorderLayout(2,2));
         Panel p1 = new Panel(new BorderLayout());
         p.add("North", p1);
         p.add("Center", textArea);
@@ -62,7 +62,6 @@ class MainChatWindowSub extends JFrame implements ActionListener, KeyListener {
         p5.add(bt2);
         p3.add("North", p5);
         this.add("East", p3);
-
     }
 
     @Override
@@ -86,7 +85,7 @@ class MainChatWindowSub extends JFrame implements ActionListener, KeyListener {
         int key = e.getKeyCode();
         String text = textField.getText();
         if(key == KeyEvent.VK_ENTER){
-            textArea.append(text + "\n");
+            textArea.append("SERVER : " + text + "\n");
             textField.selectAll();
             textField.setText("");
         }
